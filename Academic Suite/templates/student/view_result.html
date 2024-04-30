@@ -1,0 +1,96 @@
+<!-- student/view_result.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+   <div class="content container-fluid">
+      <!-- Form or dropdown for selecting session year -->
+     
+    
+      <!-- Table for displaying results -->
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="card card-table">
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <table id="table_id" class="table table-hover table-center mb-0">
+                        <thead>
+                           <tr>
+                              <th>ID</th>
+                              <th>Subject</th>
+                              <th>Marks</th>
+                              <th class="text-right">Status</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for i in result %}
+                              <tr>
+                                 <td>{{ i.id }}</td>
+                                 <td>{{ i.subject_id.name }}</td>
+                                 <td>{{ i.mark }}</td>
+                                 <td class="text-right">
+                                    {% if i.mark >= 40 %}
+                                       <span class="badge badge-success">PASS</span>
+                                    {% else %} 
+                                       <span class="badge badge-danger">FAIL</span>
+                                    {% endif %}
+                                 </td>
+                              </tr>
+                           {% endfor %}
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Display CGPA -->
+      <div class="row mt-4">
+         <div class="col-sm-12">
+            <div class="card card-table">
+               <div class="card-body">
+                  <h4 class="card-title">CGPA Calculation</h4>
+                  <p class="mb-3">
+                     Your CGPA is: {{ cgpa|floatformat:2 }}
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      <!-- Table for displaying subject improvement suggestions -->
+      <div class="row mt-4">
+         <div class="col-sm-12">
+            <div class="card card-table">
+               <div class="card-body">
+                  <h4 class="card-title">Subject Improvement Suggestions</h4>
+                  <table class="table table-hover table-center mb-0">
+                     <thead>
+                        <tr>
+                           <th>Subject</th>
+                           <th>Improvement Suggestions</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {% for i in result %}
+                           <tr>
+                              <td>{{ i.subject_id.name }}</td>
+                              <td>
+                                 {% if i.mark < 40 %}
+                                    Work on understanding key concepts. Seek help from teachers or classmates if needed.
+                                 {% elif 40 <= i.mark <= 70 %}
+                                    Keep up the good work! Consider exploring advanced topics in this subject.
+                                 {% else %}
+                                    Excellent! Keep up the good work in this subject.
+                                 {% endif %}
+                              </td>
+                           </tr>
+                        {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{% endblock %}

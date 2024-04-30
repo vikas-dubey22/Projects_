@@ -1,0 +1,90 @@
+<!-- dashboard.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-container">
+
+    <!-- Dynamic Motivational Quotes -->
+    <div class="dynamic-motivational-quotes border p-4 text-center mb-4">
+        <h3>Motivational Quote of the Day</h3>
+        <div class="quote-container mb-3">
+            <blockquote class="blockquote">
+                <p id="quote-text"></p>
+                <footer class="blockquote-footer" id="quote-author"></footer>
+            </blockquote>
+        </div>
+        <button class="btn btn-primary" onclick="fetchMotivationalQuote()">Get New Quote</button>
+    </div>
+
+    <div class="dashboard-container">
+        <h3 class="text-center">Technology Roadmap</h3>
+
+        <!-- DSA Roadmap -->
+        <div class="roadmap border p-3 mb-3">
+            <div class="roadmap-header">
+                <h4 class="mb-3"><i class="fas fa-code"></i> DSA Roadmap</h4>
+            </div>
+
+            <ul>
+                <li><i class="fas fa-check-circle"></i> Asymptotic Notation and Analysis of Algorithms</li>
+                <li><i class="fas fa-check-circle"></i> Arrays</li>
+                <li><i class="fas fa-check-circle"></i> Matrices or Grids (Multi-Dimensional Arrays)</li>
+                <!-- Add more DSA roadmap items as needed -->
+            </ul>
+
+            <p>
+                For more information, visit: <a href="https://www.geeksforgeeks.org/data-structures/" target="_blank">GeeksforGeeks</a>
+            </p>
+        </div>
+
+        <!-- Full Stack Web Development -->
+        <div class="roadmap border p-3 mb-3">
+            <div class="roadmap-header">
+                <h4 class="mb-3"><i class="fas fa-globe"></i> Full Stack Web Development Roadmap</h4>
+            </div>
+
+            <ul>
+                <li><i class="fas fa-check-circle"></i> HTML/CSS</li>
+                <li><i class="fas fa-check-circle"></i> JavaScript</li>
+                <li><i class="fas fa-check-circle"></i> Frontend Libraries and Frameworks</li>
+                <li><i class="fas fa-check-circle"></i> Responsive Design</li>
+                <!-- Add more Full Stack Web Dev roadmap items as needed -->
+            </ul>
+
+            <p>
+                For more information, visit: <a href="https://www.geeksforgeeks.org/what-is-full-stack-development/" target="_blank">GeeksforGeeks</a>
+            </p>
+        </div>
+
+        <!-- Add more roadmap sections as needed -->
+    </div>
+
+    <!-- Include Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include your custom script for dynamic features -->
+    <script>
+        $(document).ready(function () {
+            // Fetch initial motivational quote on page load
+            fetchMotivationalQuote();
+        });
+
+        // Function to fetch a new motivational quote
+        function fetchMotivationalQuote() {
+            $.ajax({
+                url: "https://api.quotable.io/random",
+                success: function (data) {
+                    displayMotivationalQuote(data);
+                }
+            });
+        }
+
+        // Function to display the motivational quote
+        function displayMotivationalQuote(quoteData) {
+            $("#quote-text").text(quoteData.content);
+            $("#quote-author").text("- " + quoteData.author);
+        }
+    </script>
+{% endblock %}
