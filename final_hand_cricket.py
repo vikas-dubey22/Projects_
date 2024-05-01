@@ -1,4 +1,5 @@
 #Commit Processed Successfully
+#added new Feature
 import random
 print("WELCOME TO HAND CRICKET :::")
 userchoice = input("CHOOSE ODD OR EVE :")
